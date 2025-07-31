@@ -1,16 +1,13 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import X from "./components/Acomponents";
-import MainLayout from "./components/layouts/MainLayout";
-import ClassLesson from "./components/NavBars/ClassLesson";
-import Practice from "./pages/Practice";
+import PaymentsManager from "./components/Payments/PaymentsMeneger";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
     <>
-      <MainLayout />
-
-      <Practice />
-      <ClassLesson />
+      <h2> App</h2>
+      <PaymentsManager />
     </>
   );
 }
