@@ -27,3 +27,14 @@ export const deletePosts = createAsyncThunk(
     }
   }
 );
+export const createPost = createAsyncThunk(
+  "post/create",
+  async (item, { rejectWithValue }) => {
+    try {
+      const res = await postsApi.create(item);
+      return res.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

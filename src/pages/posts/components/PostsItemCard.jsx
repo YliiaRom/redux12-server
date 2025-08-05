@@ -10,8 +10,8 @@ function PostsItemCard({ postData }) {
         <div>{postData.body}</div>
 
         <div className="likesBody">
-          <div>❤️ {postData.likesNumber}</div>
-          <div>💔 {postData.dislikesNumber}</div>
+          <div>❤️ {postData.likesNumber || 0}</div>
+          <div>💔 {postData.dislikesNumber || 0}</div>
         </div>
         <p>{postData.authorId}</p>
         <button onClick={() => dispatch(deletePosts(postData.id))}>

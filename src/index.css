@@ -793,3 +793,73 @@ textarea {
 .pgWrap {
   margin: 20px auto;
 }
+.bgBlack {
+  background-color: #383636;
+  color: #ffffffb0;
+  padding: 20px 10px;
+}
+.bgBlack p {
+  padding: 10px;
+}
+.accent {
+  color: #f09d03cc;
+}
+/* ---task */
+.tasksWrapper {
+  max-width: 1200px;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  perspective: 1000px;
+  perspective-origin: center;
+}
+.cardTask {
+  border-radius: 10px;
+  position: relative;
+  width: 400px;
+  min-height: 400px;
+
+  transition: 4s;
+  transform-style: preserve-3d;
+}
+
+.taskFront,
+.taskBack {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+}
+.taskFront {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f0f0f3;
+  color: #999;
+
+  backface-visibility: hidden;
+  box-shadow: inset 10px 10px 10px #fff, inset -10px -10px 10px #99999927,
+    inset 10px 10px 30px #fff, inset -10px -10px 30px #99999927;
+}
+.taskBack {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+
+  background-color: #383636;
+  color: #ffffffb0;
+  backface-visibility: hidden;
+  box-shadow: inset 10px 10px 10px #5d5a5a, inset -10px -10px 10px #04040493,
+    inset 10px 10px 30px #99999951, inset -10px -10px 30px #1a1a1a5b;
+  transform: rotateY(180deg);
+}
+.cardTask:hover {
+  transform: rotateY(180deg);
+}

@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deletePosts, fetchPosts } from "./postsThunk.js";
+import { createPost, deletePosts, fetchPosts } from "./postsThunk.js";
 
 const initialState = {
   postsList: [],
+  postListInfinity: [],
   // --пагінація
   // --яку оберуть сторінку
   currentPageNumber: 1,
@@ -32,9 +33,20 @@ export const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "success";
         state.error = null;
+        //--list
         state.postsList = action.payload.items;
+        //--pagination
         const paginationDate = action.payload.pagination;
         state.currentPageNumber = paginationDate.currentPage;
+        //--list infinity
+        if (state.currentPageNumber === 1) {
+          state.postListInfinity = action.payload.items;
+        } else {
+          state.postListInfinity = [
+            ...state.postListInfinity,
+            ...action.payload.items,
+          ];
+        }
         state.postsNumPerPage = paginationDate.pageSize;
         state.totalPageNumber = paginationDate.totalPages;
       })
@@ -53,12 +65,29 @@ export const postsSlice = createSlice({
         state.postsList = state.postsList.filter(
           (item) => item.id !== action.payload
         );
+        state.postListInfinity = state.postListInfinity.filter(
+          (el) => el.id !== action.payload
+        );
       })
       .addCase(deletePosts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      // --create
+      .addCase(createPost.pending, (state) => {
+        state.status = "loading";
+        state.error = false;
+      })
+      .addCase(createPost.fulfilled, (state, action) => {
+        state.status = "success";
+        state.error = null;
+        state.postsList.push(action.payload);
+      })
+      .addCase(createPost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
   },
 });
-export const { setCurrentPage } = postsSlice.actions;
+export const { setCurrentPage, createItemPost } = postsSlice.actions;
 export default postsSlice.reducer;
